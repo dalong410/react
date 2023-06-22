@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function User({ user, onRemove, onToggle, onModify }) {
+function User({ user, onRemove, onToggle }) {
+    useEffect(() => {
+        console.log('user 값이 설정됨');
+        console.log(user);
+        return () => {
+            console.log('user 가 바뀌기 전..');
+            console.log(user);
+        };
+    });
     return (
         <div>
             <b 
@@ -14,12 +22,11 @@ function User({ user, onRemove, onToggle, onModify }) {
             </b>
             <span>({user.email})</span>
             <button onClick={() => onRemove(user.id)}>삭제</button>
-            <button onClick={() => onModify(user)}>수정</button>
         </div>
     );
 }
 
-function UserList({ users, onRemove, onToggle, onModify }) {
+function UserList({ users, onRemove, onToggle }) {
     return (
         <div>
             {users.map(user => (
@@ -28,7 +35,6 @@ function UserList({ users, onRemove, onToggle, onModify }) {
                     key={user.id} 
                     onRemove={onRemove}
                     onToggle={onToggle}
-                    onModify={onModify}
                 />
             ))}
         </div>
