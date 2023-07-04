@@ -17,12 +17,12 @@ function App() {
     const onChange = useCallback(
         e => {
             const { name, value } = e.target;
-            setInputs({
+            setInputs(inputs => ({
                 ...inputs,
                 [name]: value
-            });
+            }));
         },
-        [inputs]
+        []
     );
 
     const [users, setUsers] = useState([
@@ -50,31 +50,31 @@ function App() {
             username,
             email
         };
-        setUsers(users.concat(user));
+        setUsers(users => users.concat(user));
 
         setInputs({
             username: '',
             email: ''
         });
         nextId.current += 1;
-    }, [users, username, email]);
+    }, [username, email]);
 
     const onRemove = useCallback(
         id => {
-            setUsers(users.filter(user => user.id !== id));
+            setUsers(users => users.filter(user => user.id !== id));
         },
-        [users]
+        []
     );
 
     const onToggle = useCallback(
         id => {
-            setUsers(
+            setUsers(users =>
                 users.map(user =>
                     user.id === id ? { ...user, active: !user.active } : user
                 )
             );
         },
-        [users]
+        []
     );
 
     const modifyId = null;
